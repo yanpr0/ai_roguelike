@@ -12,3 +12,5 @@ struct MonsterSpawner
   float timeBetweenSpawns;
 };
 
+struct DungeonExit {};
+

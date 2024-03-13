@@ -12,6 +12,8 @@ namespace steer
     Num
   };
 
+  flecs::entity create_steerer(flecs::entity e);
+
   flecs::entity create_steer_beh(flecs::entity e, Type type);
 
   flecs::entity create_seeker(flecs::entity e);
@@ -21,4 +23,12 @@ namespace steer
 
   void register_systems(flecs::world &ecs);
 };
+
+struct Seeker {};
+struct Pursuer {};
+struct Evader {};
+struct Fleer {};
+struct Separation {};
+struct Alignment {};
+struct Cohesion {};
 

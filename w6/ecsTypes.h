@@ -4,6 +4,18 @@
 #include <vector>
 #include <unordered_map>
 #include <math.h>
+#include <flecs.h>
+
+template <typename... Ts>
+auto& staticQuery(flecs::world& ecs, const char* name)
+{
+  auto e = ecs.lookup(name);
+  if (e == 0)
+  {
+    e = ecs.entity(name).set(ecs.query<Ts...>());
+  }
+  return *e.get<flecs::query<Ts...>>();
+}
 
 // TODO: make a lot of seprate files
 struct Position;
@@ -72,6 +84,12 @@ inline Position truncate(const Position &v, float len)
 inline bool operator==(const Position &lhs, const Position &rhs) { return lhs.x == rhs.x && lhs.y == rhs.y; }
 inline bool operator!=(const Position &lhs, const Position &rhs) { return !(lhs == rhs); }
 
+struct IntPos
+  {
+    int x;
+    int y;
+    bool operator==(const IntPos& other) const noexcept = default;
+};
 
 struct MoveSpeed
 {
@@ -111,6 +129,11 @@ struct NumActions
 struct MeleeDamage
 {
   float damage = 2.f;
+};
+
+struct MeleeDist
+{
+  float dist = 0.f;
 };
 
 struct HealAmount
