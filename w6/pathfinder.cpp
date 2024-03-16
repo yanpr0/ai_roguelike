@@ -383,7 +383,9 @@ std::vector<Position> find_approximated_path(const DungeonPortals &dp, const Dun
     std::vector<Position> res;
     for (auto [x, y] : a)
     {
-      res.emplace_back(x * dungeon::tile_size, y * dungeon::tile_size);
+      Position pos = {x * dungeon::tile_size, y * dungeon::tile_size};
+      Position foot_pos = pos + Position{0.5f * dungeon::tile_size, 0.5f * dungeon::tile_size};
+      res.push_back(foot_pos);
     }
     return res;
   };
@@ -408,6 +410,8 @@ std::vector<Position> find_approximated_path(const DungeonPortals &dp, const Dun
     if (!min_path.empty())
     {
       min_len = min_path.size();
+      min_path[0] = pos_from;
+      min_path.back() = pos_to;
     }
   }
 
@@ -438,6 +442,8 @@ std::vector<Position> find_approximated_path(const DungeonPortals &dp, const Dun
       }
     }
   }
+  min_path[0] = pos_from;
+  min_path.back() = pos_to;
   return min_path;
 }
 

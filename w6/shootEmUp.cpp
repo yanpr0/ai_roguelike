@@ -267,8 +267,9 @@ static void register_roguelike_systems(flecs::world &ecs)
           auto [x1, y1] = path[i];
           auto [x2, y2] = path[i + 1];
           DrawLineEx(Vector2{x1, y1}, Vector2{x2, y2}, 5.f, RED);
-          DrawText(TextFormat("%d", int(path.size() - i)), x1, y1, 16, WHITE);
+          DrawText(TextFormat("%d", int(path.size()) - i - 1), x1, y1, 16, WHITE);
         }
+        DrawText(TextFormat("%d", 0), path.back().x, path.back().y, 16, WHITE);
       }
     });
   steer::register_systems(ecs);
